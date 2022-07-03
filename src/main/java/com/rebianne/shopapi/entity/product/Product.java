@@ -1,6 +1,6 @@
-package com.rebianne.shopapi.entity.order;
+package com.rebianne.shopapi.entity.product;
 
-import com.rebianne.shopapi.entity.Common;
+import com.rebianne.shopapi.constant.ProductStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -8,36 +8,38 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
- * [2022.07.02] Order Product entity
- * key: product_id
+ * [2022.07.03] Product entity
+ * 상품등록 관련 엔티티
  */
 @Entity
-@Table(name="TB_ORDER_PRODUCT")
+@Table(name="TB_PRODUCT")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description = "주문 데이터 내 상품 데이터를 위한 도메인 객체")
-public class Product extends Common {
+@ApiModel(description = "상품 데이터를 위한 도메인 객체")
+public class Product {
 
     @Id
     @Column(name="product_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name="order_id")
-    private Order order;
-
     @ApiModelProperty(notes = "상품명을 입력해주세요")
     private String name;
-    
+
     @ApiModelProperty(notes = "상품금액을 입력해주세요")
     private int amount;
 
-    @ApiModelProperty(notes = "상품의 구매 수량을 입력해주세요")
+    @ApiModelProperty(notes = "상품의 바코드를 입력해주세요")
+    private String barcode;
+
+    @ApiModelProperty(notes = "상품의 재고을 입력해주세요")
     private int stock;
+
+    @ApiModelProperty(notes = "상품의 판매 여부(Y/N)")
+    @Enumerated(EnumType.STRING)
+    private ProductStatus status;
 
 }

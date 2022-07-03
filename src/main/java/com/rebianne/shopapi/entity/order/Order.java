@@ -1,6 +1,6 @@
 package com.rebianne.shopapi.entity.order;
 
-import com.rebianne.shopapi.constant.Status;
+import com.rebianne.shopapi.constant.OrderStatus;
 import com.rebianne.shopapi.entity.Common;
 import com.rebianne.shopapi.entity.User;
 import io.swagger.annotations.ApiModel;
@@ -34,7 +34,7 @@ public class Order extends Common {
 
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "주문 상태값을 입력해주세요")
-    private Status status;
+    private OrderStatus status;
 
     @ApiModelProperty(notes = "구매자의 결제번호를 입력해주세요")
     private long payment_id;

@@ -23,9 +23,9 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToMany
+    @ManyToOne
     @JoinColumn(name="product_id")
-    private List<Product> product;
+    private Product product;
 
     @ApiModelProperty(notes = "옵션 데이터 정렬 순서 지정")
     private int sequence;
