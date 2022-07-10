@@ -4,9 +4,15 @@ import com.rebianne.shopapi.constant.Level;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * [2022.07.01] user entity
@@ -18,21 +24,21 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "사용자 상세 정보를 위한 도메인 객체")
-public class User extends Common {
+public class User extends Common implements UserDetails {
 
     @Id
-    @Column(name="user_id")
+    @Column(name="user_id", unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    //PK
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Size(min=2, message="Name은 2글자 이상 입력해주세요.")
     @ApiModelProperty(notes = "사용자 이름을 입력해주세요.")
     private String name;
 
+    @Column(nullable = false, length = 100)
     @ApiModelProperty(notes = "사용자 패스워드를 입력해주세요.")
     private String password;
 
@@ -42,9 +48,56 @@ public class User extends Common {
     @ApiModelProperty(notes = "사용자 상세 주소를 입력해주세요.")
     private String detail_address;
 
+    @Column(nullable = false, unique = false)
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(notes = "사용자의 등급을 설정해주세요.")
     private Level level;
+
+    //기본 권한 세팅
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities(){
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    //계정만료
+    @Override
+    public boolean isAccountNonExpired() {
+        if(level.equals(Level.ACCOUNT_EXPIRATION)) {
+            return false;
+        }
+        return true;
+    }
+
+    //잠긴계정
+    @Override
+    public boolean isAccountNonLocked() {
+        if(level.equals(Level.LOCKED_ACCOUNT)) {
+            return false;
+        }
+        return true;
+    }
+
+    //패스워드 만료
+    @Override
+    public boolean isCredentialsNonExpired() {
+        if(level.equals(Level.PASSWORD_EXPIRATION)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        if(isCredentialsNonExpired() && isAccountNonExpired() && isAccountNonLocked()){
+            return true;
+        }
+        return false;
+    }
 
 
 }
