@@ -56,7 +56,7 @@ public class User extends Common implements UserDetails {
     //기본 권한 세팅
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities(){
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return Arrays.asList(new SimpleGrantedAuthority(level.toString()));
     }
 
     @Override
@@ -64,30 +64,24 @@ public class User extends Common implements UserDetails {
         return this.email;
     }
 
+    @Override
+    public String getPassword() { return this.password; }
+
     //계정만료
     @Override
     public boolean isAccountNonExpired() {
-        if(level.equals(Level.ACCOUNT_EXPIRATION)) {
-            return false;
-        }
         return true;
     }
 
     //잠긴계정
     @Override
     public boolean isAccountNonLocked() {
-        if(level.equals(Level.LOCKED_ACCOUNT)) {
-            return false;
-        }
         return true;
     }
 
     //패스워드 만료
     @Override
     public boolean isCredentialsNonExpired() {
-        if(level.equals(Level.PASSWORD_EXPIRATION)) {
-            return false;
-        }
         return true;
     }
 

@@ -3,6 +3,8 @@ package com.rebianne.shopapi.repository;
 import com.rebianne.shopapi.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<User, Long> {
 
     //회원 아이디 찾기

@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * [2022.07.02] Order Product entity
@@ -20,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "주문 데이터 내 상품 데이터를 위한 도메인 객체")
-public class Product extends Common {
+public class Order_Product extends Common {
 
     @Id
     @Column(name="product_id")

@@ -17,7 +17,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "결제 데이터를 위한 도메인 객체")
-public class Payment extends Common {
+public class Order_Payment extends Common {
 
     @Id
     @Column(name="payment_id")

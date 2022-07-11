@@ -5,10 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="TB_ORDER_OPTION")
@@ -16,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "사용자별 주문 옵션 데이터를 위한 도메인 객체")
-public class Option {
+public class Order_Option {
 
     @Id
     @Column(name="option_id")
@@ -25,7 +23,7 @@ public class Option {
 
     @ManyToOne
     @JoinColumn(name="product_id")
-    private Product product;
+    private Order_Product product;
 
     @ApiModelProperty(notes = "옵션 데이터 정렬 순서 지정")
     private int sequence;

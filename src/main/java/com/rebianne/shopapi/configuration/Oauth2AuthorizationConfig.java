@@ -1,20 +1,20 @@
 package com.rebianne.shopapi.configuration;
 
+import com.rebianne.shopapi.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 @EnableAuthorizationServer
 @RequiredArgsConstructor
 @Configuration
 public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
+    private final UserDetailService userDetailService;
 
     //security, clients, endpoints
     /*
@@ -40,7 +40,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.userDetailsService(userDetailsService);
+        endpoints.userDetailsService(userDetailService);
     }
 
 
