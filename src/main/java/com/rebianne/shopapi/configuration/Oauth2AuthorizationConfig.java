@@ -34,7 +34,7 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
                 .scopes("read", "write")
                 .accessTokenValiditySeconds(60 * 60)
                 .refreshTokenValiditySeconds(60 * 60)
-                .redirectUris("htttp://localhost:9090/callback")
+                .redirectUris("http://localhost:9090/callback")
                 .autoApprove(true);
     }
 

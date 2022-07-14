@@ -2,7 +2,6 @@ package com.rebianne.shopapi.service;
 
 import com.rebianne.shopapi.entity.User;
 import com.rebianne.shopapi.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
