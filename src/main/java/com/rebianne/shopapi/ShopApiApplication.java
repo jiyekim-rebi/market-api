@@ -5,20 +5,14 @@ import com.rebianne.shopapi.entity.User;
 import com.rebianne.shopapi.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
 @SpringBootApplication
 public class ShopApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ShopApiApplication.class, args);
-
-        //sample user
-        User user = new User();
-        user.setEmail("rebianne03@naver.com");
-        user.setPassword("{noop}test");
-        user.setName("rebi");
-        user.setLevel(Level.ADMIN);
-
     }
 
 }
