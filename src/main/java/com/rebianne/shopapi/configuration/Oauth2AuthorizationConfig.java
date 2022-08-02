@@ -2,6 +2,7 @@ package com.rebianne.shopapi.configuration;
 
 import com.rebianne.shopapi.service.UserDetailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,6 +11,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 @RequiredArgsConstructor
 @Configuration
@@ -18,11 +23,21 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 
     private final UserDetailService userDetailService;
     private final AuthenticationManager authenticationManager;
+    private final DataSource dataSource;
+
+    //DB에 토큰 데이터 저장
+    @Bean
+    public TokenStore tokenStore(){
+        return new JdbcTokenStore(dataSource);
+    }
 
     //security, clients, endpoints
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        super.configure(security);
+        //super.configure(security);
+       security.tokenKeyAccess("permitAll()") //전부 허용
+               .checkTokenAccess("isAuthenticated()") //인증된 사용자만 토큰 체크 가능
+               .allowFormAuthenticationForClients();
     }
 
 
@@ -43,7 +58,8 @@ public class Oauth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.userDetailsService(userDetailService)
-                 .authenticationManager(authenticationManager);
+                 .authenticationManager(authenticationManager)
+                 .tokenStore(tokenStore());
     }
 
 

@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .formLogin()
                 .and()
-                .httpBasic();
+                .httpBasic();       //basic auth setting
     }
 
     //[Unsupported grant type: password] 에러 현상으로 인한 빈처리

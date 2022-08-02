@@ -33,7 +33,7 @@ public class OauthToken {
             private String redirect_uri;
 
             public Map<String, Object> getAccessTokenData(){
-                Map map = new HashMap<String, String>();
+                Map map = new HashMap<String, Object>();
 
                 map.put("code", this.code);
                 map.put("grant_type", this.grant_type);
@@ -49,7 +49,7 @@ public class OauthToken {
             private String grant_type;
 
             public Map<String, Object> getRefreshTokenData(){
-                Map map = new HashMap<String, String>();
+                Map map = new HashMap<String, Object>();
 
                 map.put("refresh_Token", this.refresh_Token);
                 map.put("grant_type", this.grant_type);

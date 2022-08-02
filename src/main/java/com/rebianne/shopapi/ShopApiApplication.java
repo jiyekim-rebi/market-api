@@ -1,13 +1,10 @@
 package com.rebianne.shopapi;
 
-import com.rebianne.shopapi.constant.Level;
-import com.rebianne.shopapi.entity.User;
-import com.rebianne.shopapi.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
+@EnableResourceServer //리소스 서버 명시
 @SpringBootApplication
 public class ShopApiApplication {
 
