@@ -1,5 +1,6 @@
 package com.rebianne.shopapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.rebianne.shopapi.constant.Level;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,6 +25,7 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "사용자 상세 정보를 위한 도메인 객체")
+@JsonInclude(JsonInclude.Include.NON_NULL) //NULL이 아닌 개체만 return 시킬 예정
 public class User extends Common implements UserDetails {
 
     @Id
