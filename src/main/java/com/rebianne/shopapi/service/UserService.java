@@ -24,13 +24,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    //중복된 회원 체크
-    private void validateDuplicateUser(User user){
-        User findUser = userRepository.findByEmail(user.getEmail());
-        if(findUser != null)
-            throw new IllegalStateException("이미 가입된 회원입니다");
-    }
-
     //회원정보 검색(email)
     public User findUserEmail(String email){
         return userRepository.findByEmail(email);
@@ -45,6 +38,23 @@ public class UserService {
     //id 오름차순으로 정렬 후 return
     public List<User> findAll(){
         return userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    }
+
+    //회원정보 업데이트
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
+
+    //회원탈퇴처리
+    public void deleteUser(User user){
+
+    }
+
+    //중복된 회원 체크
+    private void validateDuplicateUser(User user){
+        User findUser = userRepository.findByEmail(user.getEmail());
+        if(findUser != null)
+            throw new IllegalStateException("이미 가입된 회원입니다");
     }
 
 }

@@ -4,5 +4,6 @@ package com.rebianne.shopapi.common;
 public class SystemCode {
 
     public static final String CODE_USER_NOT_FOUND = "USER_NOT_FOUND";
+    public static final String CODE_USER_NOT_CREATE = "USER_NOT_CREATE";
 
 }
